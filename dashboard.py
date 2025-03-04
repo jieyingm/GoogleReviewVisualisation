@@ -13,7 +13,7 @@ nltk.download("stopwords")
 stop_words = set(stopwords.words("english"))
 
 # File path to sentiment analysis data
-file_path = "SentimentAnalysis_data.xlsx"
+file_path = "https://docs.google.com/spreadsheets/d/14YejDT2UB93Ah7Y0dUoZEXJlI62oDLuE/edit?usp=sharing&ouid=109081502877770691586&rtpof=true&sd=true"
 
 @st.cache_data
 def get_shop_names():
