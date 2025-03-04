@@ -1,0 +1,9 @@
+streamlit
+pandas
+matplotlib
+seaborn
+wordcloud
+textblob
+nltk
+adjustText
+openpyxl  # Required for reading Excel files
