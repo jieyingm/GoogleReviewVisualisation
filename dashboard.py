@@ -8,12 +8,35 @@ from textblob import TextBlob  # For sentiment intensity
 from adjustText import adjust_text  # Helps avoid text overlap
 import nltk
 from nltk.corpus import stopwords
+import dropbox
+import datetime
 
 nltk.download("stopwords")
 stop_words = set(stopwords.words("english"))
 
+# Dropbox access token (Get from Dropbox App Console)
+ACCESS_TOKEN = "sl.u.AFnAEoUWfLnW9eZolfbCBReRo20_8favnoSHzWX2BYRGhrUVwzrpueggI9ZuayvleU1ArU9mqTUo62652x2y2c7MUxeW-Rnnai7G2leWZJvH0aH_H0ccRSZjnfrY_styQQg4Cf5xkY2WkHId45rfLQ5VaD9IGeq_f8g5SWamDrw5YzR2gPq8aDgj7SfLqzxTwqP9TIEv-ns3bXypOnssM-LeqOoENajrKCfK2SHUf0Bi7e2dhajGMOh-ac1WWydu6UYitGq1jtHDyra9LwmiIOA60NsMoHt3uBtmcZnIyfdG0U9xp4mRKEkb9HHyfPPlFYTDdocGCasa0R2OkbuEK-eKZ7W46JWWV8HL_U7mi28RlzCK87uBsGPB6qGmjNK9MCgx1zh7EjKsRH6PGmUV_BTtwUAx2Xx23FLeuWQ5YAGX1qyuHXZ5fNgbiq7qFR_nAd2CjsU0DCoSXDrckYmoGEFZvW2qHRe53EYnSCfFOqlS9syhqa6EdXbnldLhxSwU5mcTUsIN98UQzi9UzaD2-YO5e5DNHVD72d5fOvTQLwoYAmWRhWEW2f6gQ1BogAHssb_SQscQ9zStolwu6jfqgt5H18UzHQipQthWehHeF7jNeLCdXlLIlZguLpVFev9sP_WBurGpn_cSfz6jMgn9qSry2YEc_MX3CW5uI9uB9EWt_UBYu7ioYQVWXhsQC5HCkNaBBqoPwFhhLwDrMdME-6EnT50I2isJhwheSGC8cRO0b-yCmbLTjVDMniA5Gs9jVLG7_u_RcqyGBFFnwGiIvZMpSuzl5p9TaqESatcU_wWFGLGm3sm-Y3J10V53I1NYxVsyCetRaZAgF1z-Y9Z-Ll3Q-Bt-I0CSc75tVFbKQUJly27G2cd7TJ4W6S7OT4vLHoClhe5O2mUmfJs7LVHW0kMk1sftrJ2cyB6rxQZzOZ-f3UJ3AD8wSFDelzJ1F9vlAiJwXJTjAlL3aRB_ENwuMKg8OqoINAFMdCeB6n8NC_-j9_j56TZ_QllbJlbqOMMkW4fZ5i-tIN1w1SFZNVZfmgMV3MZF4rIutp_sqbJuycZ6f0ae5roNelduYsKJhQla8PRH0LfRt4WRFJvNOjBRVJT5DQlQYrev9y2jP8onlc7cPPSkuTLsUsVxKXZuQ4SXxqJRDeyQY0bphJaHj27jBmuR0peCQicdeuTYsSozPjYE2gTk-Ajhc8D3ymhJodGWld8rPDIHX6kHy0SXZo3Acc-04UWBpaXcBU-663FjJgkwuzTTyoZxCEc0LqSkon_BkapFbW4vngQTLc3YILEJJL6v_TSG-ajud3li7GOqSbckRwbGMxDqW26IUDW4sykypjOnsuEuFhbsoMWWSRYsbFiJLltNOxa144ROxZD107LjVTL4RUhIki6GeUkwgmwP69s"
+dbx = dropbox.Dropbox(ACCESS_TOKEN)
+
+# Generate today's file name
+today = datetime.datetime.today().strftime("%d-%m-%Y")
+file_name = f"sentiment-test-{today}.xlsx"
+dropbox_path = f"/UiPath/{file_name}"  # Update folder path
+
+# Download file from Dropbox
+local_file_path = file_name  # Save in the current working directory
+try:
+    dbx.files_download_to_file(local_file_path, dropbox_path)
+    print(f"✅ File downloaded successfully: {local_file_path}")
+except dropbox.exceptions.ApiError as e:
+    print(f"❌ Error downloading file: {e}")
+
+# Set file path variable for further use
+file_path = local_file_path
+
+
 # File path to sentiment analysis data
-file_path = "https://www.dropbox.com/scl/fi/rbgltbtazfdr3q15oarqs/sentiment-test-05-03-2025.xlsx?rlkey=5grniq0yh322k07gzuuao3ose&st=zyk0vari&dl=0"
+# file_path = "https://docs.google.com/spreadsheets/d/14YejDT2UB93Ah7Y0dUoZEXJlI62oDLuE/edit?usp=drive_link&ouid=109081502877770691586&rtpof=true&sd=true"
 
 @st.cache_data
 def get_shop_names():
