@@ -144,7 +144,6 @@ if shop_names:
 
     # Create interactive Pie Chart with hover labels
     fig = px.pie(sentiment_counts, values="Count", names="Sentiment",
-                title="Sentiment Distribution",
                 color="Sentiment",  # Apply custom colors
                 color_discrete_map=filtered_colors)  # Apply filtered colors
 
