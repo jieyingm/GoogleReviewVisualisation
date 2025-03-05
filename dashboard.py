@@ -61,11 +61,11 @@ def load_sentiment_data(sheet_name):
 def categorize_complaints(negative_reviews):
     """Categorizes negative reviews into key complaint causes and stores related reviews."""
     categories = {
-        "Service": ["rude", "slow", "unfriendly", "ignored", "lambat", "lapar", "lewat", "unprofessional", ],
-        "Food Quality": ["cold", "undercooked", "overcooked", "stale", "tasteless"],
-        "Pricing": ["expensive", "overpriced", "costly", "bill", "mahal"],
-        "Cleanliness": ["dirty", "unclean", "hygiene", "smelly", "kotor"],
-        "Ambience": ["noisy", "loud", "dark", "bad atmosphere", "bising"]
+        "Service": ["rude", "slow", "unfriendly", "ignored", "lambat", "lapar", "lewat", "unprofessional", "limited", "ignore"],
+        "Food Quality": ["cold", "undercooked", "overcooked", "stale", "tasteless", "overate", "worse", "greasy", "terrible"],
+        "Pricing": ["expensive", "overprice", "costly", "bill", "mahal", "waste"],
+        "Cleanliness": ["dirty", "unclean", "hygiene", "smelly", "kotor", "nasty"],
+        "Ambience": ["noisy", "loud", "dark", "bad atmosphere", "bising", "tiny", "shout"]
     }
 
     category_reviews = defaultdict(list)  # Dictionary to store reviews for each category
