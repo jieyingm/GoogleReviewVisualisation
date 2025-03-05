@@ -149,11 +149,11 @@ if shop_names:
 
     # Define color mapping (green → red gradient)
     sentiment_colors = {
-        "Very Positive": "#77DD76",  # Pastel Green
-        "Positive": "#BDE7BD",       # Light Pastel Green
+        "Very Positive": "#00FF00",  # Pastel Green
+        "Positive": "#95FF66",       # Light Pastel Green
         "Neutral": "#FDFD96",        # Soft Peach
         "Negative": "#FFB347",       # Pastel Red-Orange
-        "Very Negative": "#FF6961"   # Light Pink-Red
+        "Very Negative": "#FF0000"   # Light Pink-Red
     }
 
     # Ensure only present sentiments are used in the color mapping
