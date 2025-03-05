@@ -7,3 +7,5 @@ textblob
 nltk
 adjustText
 openpyxl  # Required for reading Excel files
+dropbox
+datetime
