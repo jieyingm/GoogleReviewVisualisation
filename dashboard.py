@@ -10,6 +10,7 @@ import nltk
 from nltk.corpus import stopwords
 import dropbox
 import datetime
+import plotly.express as px
 
 nltk.download("stopwords")
 stop_words = set(stopwords.words("english"))
@@ -60,11 +61,11 @@ def load_sentiment_data(sheet_name):
 def categorize_complaints(negative_reviews):
     """Categorizes negative reviews into key complaint causes and stores related reviews."""
     categories = {
-        "Service": ["rude", "slow", "unfriendly", "ignored", "lambat", "lapar", "lewat"],
+        "Service": ["rude", "slow", "unfriendly", "ignored", "lambat", "lapar", "lewat", "unprofessional", ],
         "Food Quality": ["cold", "undercooked", "overcooked", "stale", "tasteless"],
         "Pricing": ["expensive", "overpriced", "costly", "bill", "mahal"],
         "Cleanliness": ["dirty", "unclean", "hygiene", "smelly", "kotor"],
-        "Ambience": ["noisy", "loud", "dark", "bad atmosphere", "ambience", "environment", "bising"]
+        "Ambience": ["noisy", "loud", "dark", "bad atmosphere", "bising"]
     }
 
     category_reviews = defaultdict(list)  # Dictionary to store reviews for each category
@@ -121,40 +122,52 @@ if shop_names:
 
     # Sentiment summary
     st.subheader("📊 Sentiment Summary")
-    sentiment_counts = df["Sentiment"].value_counts()
 
-    # Improved Pie Chart
-    fig, ax = plt.subplots(figsize=(6, 6))
-    colors = sns.color_palette("pastel")  # Softer color palette
+    # Count sentiment occurrences
+    sentiment_counts = df["Sentiment"].value_counts().reset_index()
+    sentiment_counts.columns = ["Sentiment", "Count"]
 
-    # Create Pie Chart
-    wedges, texts, autotexts = ax.pie(
-        sentiment_counts,
-        labels=None,  # Remove direct labels from slices
-        autopct='%1.1f%%',
-        startangle=90,
-        colors=colors,
-        wedgeprops={'edgecolor': 'black'},
-        pctdistance=1.15,  # Move percentages outward
-        labeldistance=1.3  # Ensure percentages do not overlap
+    # Ensure Sentiment column is string type
+    sentiment_counts["Sentiment"] = sentiment_counts["Sentiment"].astype(str)
+
+    # Define color mapping (green → red gradient)
+    sentiment_colors = {
+        "Very Positive": "#77DD76",  # Pastel Green
+        "Positive": "#BDE7BD",       # Light Pastel Green
+        "Neutral": "#FDFD96",        # Soft Peach
+        "Negative": "#FFB347",       # Pastel Red-Orange
+        "Very Negative": "#FF6961"   # Light Pink-Red
+    }
+
+    # Ensure only present sentiments are used in the color mapping
+    filtered_colors = {k: v for k, v in sentiment_colors.items() if k in sentiment_counts["Sentiment"].values}
+
+    # Create interactive Pie Chart with hover labels
+    fig = px.pie(sentiment_counts, values="Count", names="Sentiment",
+                title="Sentiment Distribution",
+                color="Sentiment",  # Apply custom colors
+                color_discrete_map=filtered_colors)  # Apply filtered colors
+
+    # Update layout: Bigger fonts for legend & labels
+    fig.update_layout(
+        legend=dict(
+            title="Sentiment", 
+            x=1.05, y=1, 
+            font=dict(size=20)  # Bigger font for legend
+        ),
+        margin=dict(l=40, r=160, t=40, b=40),  # Adjust margins for better spacing
+        font=dict(size=14)  # Increase overall font size
     )
 
-    # Adjust percentage label styles
-    for autotext in autotexts:
-        autotext.set_fontsize(10)
-        autotext.set_color("black")
-        autotext.set_fontweight("bold")
+    # Update text inside the pie chart (percentages)
+    fig.update_traces(
+        textinfo='percent',  # Show both percentage and label
+        textfont_size=16  # Bigger font for labels inside pie chart
+    )
 
-    # Use adjustText to move labels slightly if they overlap
-    texts = autotexts
-    adjust_text(texts, expand=(1.2, 1.5), ax=ax)
+    # Display the chart in Streamlit
+    st.plotly_chart(fig)
 
-    # Add a legend outside the chart
-    ax.legend(wedges, sentiment_counts.index, title="Sentiment", loc="center left", bbox_to_anchor=(1, 0.5))
-
-    ax.set_title("Sentiment Distribution", fontsize=14, fontweight='bold')
-
-    st.pyplot(fig)
 
 
     # Word Cloud for Reviews
