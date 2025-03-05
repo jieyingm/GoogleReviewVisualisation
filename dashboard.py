@@ -59,14 +59,31 @@ def load_sentiment_data(sheet_name):
     return df
 
 def categorize_complaints(negative_reviews):
-    """Categorizes negative reviews into key complaint causes and stores related reviews."""
     categories = {
-        "Service": ["rude", "slow", "unfriendly", "ignored", "lambat", "lapar", "lewat", "unprofessional", "limited", "ignore"],
-        "Food Quality": ["cold", "undercooked", "overcooked", "stale", "tasteless", "overate", "worse", "greasy", "terrible"],
-        "Pricing": ["expensive", "overprice", "costly", "bill", "mahal", "waste"],
-        "Cleanliness": ["dirty", "unclean", "hygiene", "smelly", "kotor", "nasty"],
-        "Ambience": ["noisy", "loud", "dark", "bad atmosphere", "bising", "tiny", "shout"]
-    }
+    "Service": [
+        "rude", "slow", "unfriendly", "ignored", "lambat", "lapar", "lewat", "unprofessional", "limited", "ignore",
+        "sombong", "biadap", "teruk", "bodoh", "marah", "abaikan", "lazy", "careless", "attitude", "arrogant", "useless"
+    ],
+    "Food Quality": [
+        "cold", "undercooked", "overcooked", "stale", "tasteless", "overate", "worse", "greasy", "terrible",
+        "hampeh", "basi", "masin", "manis", "pahit", "hancur", "tawar", "lemau", "burnt", "hard", "raw", "soggy", "dry"
+    ],
+    "Pricing": [
+        "expensive", "overprice", "costly", "bill", "mahal", "waste",
+        "cekik", "melampau", "takberbaloi", "boros", "membazir", "scam", "ridiculous", "unfair", "inflated"
+    ],
+    "Cleanliness": [
+        "dirty", "unclean", "hygiene", "smelly", "kotor", "nasty",
+        "busuk", "berlendir", "berhabuk", "melekit", "berminyak", "bersepah", "lipas", "tikus",
+        "filthy", "sticky", "messy", "dusty", "stinky", "gross"
+    ],
+    "Ambience": [
+        "noisy", "loud", "dark", "bad", "bising", "tiny", "shout",
+        "panas", "sempit", "sesak", "bau", "bingit", "terang",
+        "cramped", "hot", "dim", "uncomfortable", "gloomy", "chaotic"
+    ]
+}
+
 
     category_reviews = defaultdict(list)  # Dictionary to store reviews for each category
 
