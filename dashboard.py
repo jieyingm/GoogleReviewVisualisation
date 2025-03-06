@@ -109,7 +109,7 @@ def extract_frequent_words(reviews):
     return Counter(words).most_common(10)  # Top 10 frequent words
 
 # Streamlit UI
-st.title("📊 Customer Sentiment Analysis Dashboard")
+st.title("📊 Customer Sentiment Analysis Dashboard({today})")
 
 shop_names = get_shop_names()
 
