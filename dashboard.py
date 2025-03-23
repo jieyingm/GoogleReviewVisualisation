@@ -85,7 +85,7 @@ def categorize_complaints(negative_reviews):
             "filthy", "sticky", "messy", "dusty", "stinky", "gross"
         ],
         "Ambience": [
-            "noisy", "loud", "dark", "bad", "bising", "tiny", "shout",
+            "noisy", "loud", "dark", "bising", "tiny", "shout",
             "panas", "sempit", "sesak", "bau", "bingit", "terang",
             "cramped", "hot", "dim", "uncomfortable", "gloomy", "chaotic"
         ]
