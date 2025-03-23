@@ -11,6 +11,7 @@ from nltk.corpus import stopwords
 import dropbox
 import datetime
 import plotly.express as px
+import pytz
 
 nltk.download("stopwords")
 stop_words = set(stopwords.words("english"))
@@ -19,8 +20,14 @@ stop_words = set(stopwords.words("english"))
 ACCESS_TOKEN = "sl.u.AFlZEbvHHvubZFH8aSIBmCP9mLCe0d3yEtc4rMhATfTdVK4lZrVjUoM23xUOg1o0hnsG_lne69Ji1OXlr87QvnUmuJ_SanoQbR2xzDc5d8nbvDaRbdchhDAVk6G7VrdZcBC3LCQ72mtaSfrKw2-T17I3ATveUkQ75P4wjyrqq9syKOSEvpK0xHkTUHCo4_kBu9nO65xCC7fSoksJbV_u3kEyKRg1yucfh95tcFIvw0IuElzItCjPRgt1-jKNzwX2hwODMEPUt1L89kiPs2Ft7Yw7IDwTE_EdP6apuuhhtD1K3I4_UW3CcNflnlUOVPhfCaflkf8Xqa4GXkjQodZfhbkPr7JAcGLGL1uwi7X9WXRcKa-LvMyRt4Wa7zEjEKH9MtP2raBooKlumSsJAdeWrZV031Qv1Ub8FFQjzHKqADxDfvVH88JOSLz27GcVMxT0cgFLqCFkhwfKm5kSG75wBqtEVQW4ecr0x0oipNTBHbhrAJLcuoACO4aLN5LIdemr6eM6rhaKWwOoVoz4gp1Zr8I3slrm4DpZtjC0nTcUU3GWLq7UNhmB3_e1VKVhoP719CMZSm99LGfOsBSmH9PJUeeFIAHwLd_Hew8W85FVDxaxec41QN9KNa3SfbBtjZmtOVKbwRQ3cE2Hr8cyU4GvgLISQDLpJd4xUxPAVruLAtgqem5DTkwu7SWr9pW0_2cw-uyP_n9ZpSongXfiA0GFouDkUKCSThDco3C1lvrBgdZaZR3PtAp0M78FUJ8uz4HXlse7zW66zbih_cWO-yR9UDLOcmZ7Wz2LwivIvBJQd_2YAx0w6_3LwjHfzEfMYHSF4lduYaSec3udGCnJjqBoxTKYD8zS1SL-jSFQct2TtaebgdIDQMqaV3qqn6KmUspzpWbpcnEiSiLmQKtfV1cnK7RpuJBiD59rVYxx2m00-TYiEy5Wzw5ckPMeS1HKOUTe14RmUzsX8bsqhnr-teOO8eD6s_JtggwUwUpqhxUVPQZA-2uPXhd7lfGnHd_bRff1Lm9odEwiT84Rp24JWtaTsFP0apjtNi6TFgddtnrdUx82uBhMoK_FAD7fjSTCvzibLhEjEAnImqOy0tIkcflVF4Z0l8oeHrixxlsBfH3a6m5O8aX3M0dl6MJuVu3CmZ4Fy0-9IUgUkWfzMfFnssyzZq5w3uuBKiIKHESDTVaZACPlDg1GluLorHBNXqeWFdfQpx4PDcnqg2u0bU7eHh35HkT-RLgK641j7a-V3G5qwMLjGYYYfqrg5Dp9254Qq87OHnBozz_tFtry1heOfhkfAC1ALyRg5IIkOkhydUhdq-oWtvXRSdeEw7jHodGuUFq-aMWlwVGO2lP_kwh_PllRW2P1s5Za0Xi2j3b2oIo1Pnjvuj17AfwARMuQqqeMPlbTDMc"
 dbx = dropbox.Dropbox(ACCESS_TOKEN)
 
+# Define timezone
+gmt_plus_8 = pytz.timezone("Asia/Kuala_Lumpur")  # GMT+8
+
+# Get today's date in GMT+8
+today = datetime.datetime.now(gmt_plus_8).strftime("%d-%m-%Y")
+
 # Generate today's file name
-today = datetime.datetime.today().strftime("%d-%m-%Y")
+# today = datetime.datetime.today().strftime("%d-%m-%Y")
 file_name = f"sentiment-test-{today}.xlsx"
 dropbox_path = f"/UiPath/{file_name}"  # Update folder path
 
